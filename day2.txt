@@ -1,0 +1,627 @@
+x = 8
+print "x=", x, ", x id=", hex(id(x))
+x = 9
+print "x=", x, ", x id=", hex(id(x))
+
+
+class Person:
+    def __init__(self, age):
+        self.age = age
+
+
+p1 = Person(8)
+print "p1 id=", hex(id(p1)), ", p1.age=", p1.age, " ,p1.age id=", hex(id(p1.age))
+p1.age = 9
+print "p1 id=", hex(id(p1)), ", p1.age=", p1.age, " ,p1.age id=", hex(id(p1.age))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+l1 = list('abcdefg')
+l2 = l1
+l3 = l1[:]
+l4 = list(l1)
+print hex(id(l1)), hex(id(l2)), hex(id(l3)), hex(id(l4))
+print l1, l2, l3, l4
+l2[0] = 'A'
+l1[1] = 'B'
+l3[2] = 'C'
+l4[3] = 'D'
+print l1, l2, l3, l4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+left = ['A', 'K']
+right = ['Q', 'J']
+player1 = [left, right]
+print player1
+player2 = player1
+import copy
+
+player3 = copy.copy(player1) # duplicate parameter
+player4 = copy.deepcopy(player1) #duplicate parameter and it's containing object
+print hex(id(player1)), hex(id(player2)), hex(id(player3)), hex(id(player4))
+print player1, player2, player3, player4
+left[0] = 'JOKER'
+print player1, player2, player3, player4
+player1.append('10')
+print player1, player2, player3, player4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+lengthArray = []
+for day in dayOfWeek:
+    lengthArray.append(len(day))
+print lengthArray
+
+print [len(day) for day in dayOfWeek]
+print [day for day in dayOfWeek if len(day) > 6]
+print [len(day) for day in dayOfWeek if len(day) < 8]
+sun, mon, tue, wed, thr, fri, sat = dayOfWeek
+print sun, wed, fri
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+number_list = [3, 1, 4, 1, 5, 9, 26, 83, 47, 100, 3, 9, 7]
+r1 = sorted(x for x in number_list if x < 30)
+print r1
+r2 = sorted((y for y in number_list if y > 10), reverse=True)
+print r2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+startRange = range(0, 20)
+print startRange
+for i in startRange:
+    print i,
+print "\n"
+r2 = range(0, 10, 2)
+print r2
+# cmd
+# pip install numpy
+import numpy
+
+r3 = numpy.arange(0, 20)
+print type(r2), type(r3)
+print r3
+r4 = numpy.arange(0, 2, 0.1)
+print r4
+r5 = numpy.linspace(0, 20)
+print r5
+r6 = numpy.linspace(0, 20, 20)
+print r6
+r7 = numpy.linspace(0, 20, 21)
+print r7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dayOfWeek = ('sunday', 'monday')
+print type(dayOfWeek), len(dayOfWeek)
+dayOfWeek += ('tuesday', 'wednesday')
+print dayOfWeek
+dayOfWeek += ('thursday',)
+print dayOfWeek
+print type(('thursday')), type(('thursday',))
+print ('thursday') * 5
+print('thursday',) * 5
+print dayOfWeek[0], dayOfWeek[len(dayOfWeek) - 1]
+print dayOfWeek[-1], dayOfWeek[-len(dayOfWeek)]
+# print dayOfWeek[len(dayOfWeek)]
+list1 = list('ABCDEFG1234567abcdefg')
+print list1[0], list1[len(list1) - 1]
+print list1[-1], list1[-(len(list1))]
+
+
+def split_head(seq):
+    return seq[0], seq[1:]
+
+
+p, q = split_head(list1)
+print type(p), p
+print type(q), q
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+set1 = {'A', 'P', 'P', 'L', 'E'}
+print set1
+set2 = set(list('BANANA'))
+print set2
+set3 = set1 | set2
+print set3
+set4 = set1 & set2
+print set4
+set5 = set1 ^ set2
+print set5
+set3 = {'A', 'B', 'N', 'P'}
+print set2 < set3, set3 < set2
+set4 = {'P', 'Q'}
+print set2 < set4, set2 > set4
+set5 = {'A', 'B', 'N'}
+print set2 < set5, set2 > set5
+print len(set3)
+
+set5.add('!')
+print set5
+#set3.add(set4) # <-- this will have exception
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Course:
+    def __init__(self, name, hour):
+        self.name = name
+        self.hour = hour
+
+    def __str__(self):
+        return "[%s]%s" % (str(self.name), str(self.hour))
+
+    def __repr__(self):
+        return str(self)
+
+
+c1 = Course('BDPY', 35)
+c2 = Course('BDPY', 35)
+c3 = c1
+c4 = Course('PYKT', 35)
+s1 = {c1, c2, c3, c4}
+s2 = {c1, c3}
+print type(s1), s1
+print type(s2), s2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Course:
+    def __init__(self, name, hour):
+        self.name = name
+        self.hour = hour
+
+    def __str__(self):
+        return "[%s]%s" % (str(self.name), str(self.hour))
+
+    def __repr__(self):
+        return str(self)
+
+    def __hash__(self):
+        return hash((self.name, self.hour))
+
+    def __eq__(self, other):
+        return self.name == other.name and self.hour == other.hour
+
+
+c1 = Course('BDPY', 35)
+c2 = Course('BDPY', 35)
+c3 = c1
+c4 = Course('PYKT', 35)
+c5 = Course('BDPY', 42)
+s1 = {c1, c2, c3, c4, c5}
+s2 = {c1, c3}
+print type(s1), s1
+print type(s2), s2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+set1 = {'A', 'P', 'P', 'L', 'E'}
+print set1
+set2 = set(list('BANANA'))
+print set2
+set3 = set1 | set2
+print set3
+set4 = set1 & set2
+print set4
+set5 = set1 ^ set2
+print set5
+set3 = {'A', 'B', 'N', 'P'}
+print set2 < set3, set3 < set2
+set4 = {'P', 'Q'}
+print set2 < set4, set2 > set4
+set5 = {'A', 'B', 'N'}
+print set2 < set5, set2 > set5
+print len(set3)
+
+set5.add('!')
+print set5
+# set3.add(set4) # <-- this will have exception
+for p in set4:
+    set3.add(p)
+print 'after add by each:', set3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sales = {'iphone6': 500, 'iphone7': 800, 'iphone8': 1000, 'iphoneXS': 1500}
+print type(sales)
+print sales['iphoneXS'], sales['iphone8']
+# print sales['xxxx']
+print sales.get('iphoneXR'), sales.get('iphoneXS')
+sales['iphoneXR'] = 700
+print sales
+print 'watch4' in sales, 'iphone7' in sales
+for x in sales:
+    print x,sales[x]
+
+for x in sales.keys():
+    print x, sales.get(x)
+
+for y in sales.values():
+    print y,
+print "\n"
+
+for z  in sales.items():
+    print type(z),z[0],z[1]
+
+sales.update({'ipad':300,'iphone7':1800})
+for p,q in sales.items():
+    print p,q
+
+git --vesion
+git config --global user.name "mark Ho"
+
+git config --global user.email "mark@uuu.com"
+cd C:\Users\Admin
+more .gitconfig
+
+https://github.com/
+
+README.md
+# BDPY 17-21Jun 2019
+
+## Install Python2.7
+## Install Python3.7
+## Install Pycharm
+
+### demo31
+
+### demo32
+
+add readme.md
+
+demo32_module
+
+
+def foo(x, y):
+    return "[foo]:result=%s" % str(x + y)
+
+
+def bar(x, y):
+    return "[bar]:result=%s" % str(x * y)
+
+
+print foo(1, 2)
+print bar(3, 4)
+
+
+demo33_use_module
+
+import demo32_module
+print "demo33"
+
+~~~~~~~~~~~~~~~~~~~~~~
+def foo(x, y):
+    return "[foo]:result=%s" % str(x + y)
+
+
+def bar(x, y):
+    return "[bar]:result=%s" % str(x * y)
+
+
+if __name__ == '__main__':
+    print foo(1, 2)
+    print bar(3, 4)
+~~~~~~~~~~~~~~~~~~~~~~~~
+import demo32_module
+
+print "demo33"
+
+print demo32_module.foo(5, 6)
+print demo32_module.bar(7, 8)
+
+import demo32_module as d
+
+print d.foo(9, 10), d.bar(11, 12)
+
+from demo32_module import foo
+
+print foo(13, 14)
+
+from demo32_module import bar as b
+
+print b(15, 16)
+
+from demo32_module import foo as f1, bar as f2
+
+print f1(17, 18), f2(19, 20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def sample_variable_arguments(fix1, fix2, *args):
+    print "fix part1=%s, part2=%s" % (str(fix1), str(fix2))
+    for p in args:
+        print p
+
+
+sample_variable_arguments('hello', 'world')
+sample_variable_arguments(100, 200)
+sample_variable_arguments('hi', 'sample1', 1, 2, 3, 4, 5)
+sample_variable_arguments('hi', 'example2', 'abc', 'def', 'apple', 'banana')
+courses = ['POOP', 'BDPY', 'PYKT']
+sample_variable_arguments("i have", '3 courses', courses)
+sample_variable_arguments("[II]i have", '3 courses', *courses)
+courses_t = ('POOP', 'BDPY', 'PYKT')
+sample_variable_arguments("[III]i have", '3 courses', *courses_t)
+courses_s = {'POOP', 'BDPY', 'PYKT'}
+sample_variable_arguments("[IV]i have", '3 courses', *courses_s)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def sample_key_args(fix1, fix2, **kargs):
+    print "fix part:", fix1, fix2
+    for k, v in kargs.items():
+        print 'key=%s, value=%s' % (str(k), str(v))
+
+
+sample_key_args('hello', 'world')
+sample_key_args(3.14, 1234)
+sample_key_args('first sample', 'using key/value',
+                course='BDPY', duration=35, instructor='Mark Ho')
+myCourse = {'course': 'BDPY', 'duration': 35, 'instructor': 'MarkHo'}
+sample_key_args('second example','using dictionary',
+                **myCourse)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def sample_fix(x1, x2, x3):
+    print 'first element:', x1
+    print 'second element:', x2
+    print 'third element:', x3
+
+
+sample_fix('apple', 'banana', 'citron')
+sample_fix(*('apple', 'banana', 'citron'))
+sample_fix('apple', *('banana', 'citron'))
+sample_fix(*('7-11', 'Fami'), x3='OK')
+~!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def dumpUserInfo(name, id, location):
+    print "user name:", name
+    print "id:", id
+    print "location:", location
+
+
+dumpUserInfo("Mark", 12345, 'Taipei')
+dumpUserInfo(name='Mark', id=54321, location='Hsinchu')
+user1 = {'name': 'John', 'id': 33, 'location': "LA"}
+dumpUserInfo(**user1)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+1.0-0.8
+str(1.0-0.8)
+repr(1.0-0.8)
+print 1.0-0.8
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from datetime import datetime
+
+now = datetime.now()
+# python REPL
+print now
+print [now]
+print {now}
+print {'k1': now}
+print (now,)
+print(now)
+print [str(now)]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#encoding=UTF-8
+import os
+print os.getcwd()
+dir1 = 'hello'
+os.mkdir(dir1)
+os.chdir(dir1)
+print os.getcwd()
+os.chdir('..')
+os.rmdir(dir1)
+dir2 = u'資料'
+os.mkdir(dir2)
+os.chdir(dir2)
+print os.getcwd().decode('ms950')
+os.chdir('..')
+os.rmdir(dir2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# part2
+import sys
+
+print sys.executable
+print sys.argv
+# python demo39.py -a -l -x -k
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import math
+import random
+
+print math.pi, math.log10(10), math.log10(2)
+print math.sqrt(5)
+for k in range(0, 100):
+    print random.randint(10, 50),
+
+print "\n"
+stores = ['7-11', 'Fami', "OK", "Hi-Life"]
+for k in range(0, 10):
+    print random.choice(stores),
+
+pokers = ['A', 'K', 'Q', 'J', '10', '9']
+for l in range(0, 10):
+    random.shuffle(pokers)
+    print pokers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import itertools
+
+result1 = itertools.chain('ABC', '123', 'abc')
+print type(result1)
+for p in result1:
+    print p,
+
+print'\nsecond times'
+for p in result1:
+    print p,
+result2 = itertools.chain('ABC', '123', 'abc', u'甲乙丙丁')
+list2 = [p for p in result2]
+for l in list2:
+    print l,
+print
+for l in list2:
+    print l,
+print
+
+result3 = itertools.permutations('ABCDE', 3)
+list3 = [x for x in result3]
+print type(list3), list3
+print len(list3)
+result4 = itertools.combinations('ABCDEF', 2)
+list4 = [x for x in result4]
+print len(list4), list4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import os
+import shutil
+print os.getcwd()
+#print shutil.copytree('info','backup')
+print shutil.rmtree('backup')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import json
+
+l1 = ['.NET', 'Oracle', 'Cloudera', '資安']
+print type(l1)
+ret1 = json.dumps(l1)
+print type(ret1), ret1
+
+d1 = {'course': 'bdpy', 'location': 'TPE', 'duration': 35, 'instructor': 'Mark HO'}
+print type(d1)
+ret2 = json.dumps(d1)
+print type(ret2), ret2
+
+ret3 = json.loads(ret1)
+print type(ret3)
+for x in ret3:
+    print x,
+print
+ret4 = json.loads(ret2)
+print type(ret4)
+for y in ret4:
+    print y,ret4[y]
+print
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Python27\Scripts\pip install requests bs4 pillow
+
+https://bugzilla.mozilla.org/rest/bug/35
+
+https://chrome.google.com/webstore/category/extensions?hl=zh-TW
+json viewer tulios
+
+
+import requests
+
+
+url1 = 'https://bugzilla.mozilla.org/rest/bug/35'
+result = requests.get(url1)
+print result.status_code
+print type(result.json())
+firstBug = result.json()["bugs"][0]
+print type(firstBug)
+print firstBug['summary']
+details = firstBug['cc_detail']
+for i in details:
+    print i['email']
+https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh?hl=zh-TW
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import requests
+import bs4
+
+url1 = 'https://www.uuu.com.tw/'
+result1 = requests.get(url1)
+soup1 = bs4.BeautifulSoup(result1.content, 'html.parser')
+print soup1.title
+courses = soup1.find('div', {'id': 'course_list'})
+course_titles = courses.find_all('h3')
+for t in course_titles:
+    print t
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import requests
+from bs4 import BeautifulSoup
+
+url1 = 'https://www.mobile01.com/'
+headers = {'User-Agent': 'my super browser', 'from': 'xyz@uuu.com'}
+r1 = requests.get(url1, headers=headers)
+soup = BeautifulSoup(r1.content, "html.parser")
+hot = soup.find('div', {'id': 'hot-posts'})
+hot_links = hot.find_all('a')
+for link in hot_links:
+    print link
+# 'https://www.mobile01.com/category.php?id=4'
+# https://www.mobile01.com/category.php?id=2
+# https://www.mobile01.com/category.php?id=6
+base_url = 'https://www.mobile01.com/category.php?id=%d'
+board_ids = [2, 4, 6]
+for id in board_ids:
+    url = base_url % id
+    headers = {'User-Agent': 'my super browser', 'from': 'xyz@uuu.com'}
+    r1 = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r1.content, "html.parser")
+    print "####",soup.title,'####'
+    hot = soup.find('div', {'id': 'hot-posts'})
+    hot_links = hot.find_all('a')
+    for link in hot_links:
+        print link
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from PIL import Image
+from urllib2 import urlopen
+
+url1 = 'https://www.cwb.gov.tw/Data/radar/CV1_3600_201906181550.png'
+
+fileToSave = urlopen(url1)
+image1 = Image.open(fileToSave)
+image1.save('images\\orig.png')
+
+half = (image1.size[0] / 2, image1.size[1] / 2)
+half_image1 = image1.resize(half, Image.ANTIALIAS)
+half_image1.save('images\\small.png')
+rot1 = image1.transpose(Image.ROTATE_90)
+rot1.save('images\\rot1.png')
+rot2 = image1.transpose(Image.ROTATE_180)
+rot2.save('images\\rot2.png')
+rot3 = image1.transpose(Image.ROTATE_270)
+rot3.save('images\\rot3.png')
+rot4 = image1.rotate(45)
+rot4.save('images\\rot4.png')
+
+
+https://firebase.google.com/
+
+https://console.firebase.google.com/?pli=1
+
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+import requests
+
+base_url = 'https://YOUR_URL/%s.json'
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import requests
+
+base_url = 'https://ntudemo2019.firebaseio.com/%s.json'
+url1 = base_url % 'demo1'
+url2 = base_url % 'demo2'
+url3 = base_url % 'demo3'
+url4 = base_url % 'demo4'
+url5 = base_url % 'demo5'
+result1 = requests.put(url1, json='hello_world')
+print result1.content, result1.status_code
+result2 = requests.put(url2, json='中文的內容')
+print result2.content, result2.status_code
+result3 = requests.put(url3, json=u'中文的內容')
+print result3.content, result3.status_code
+json4 = ['hello', 123, 4.567, None, 'tiger', u'老虎']
+result4 = requests.put(url4, json=json4)
+print result4.content, result4.status_code
+json5 = {'course': 'bdpy', 'duration': 35}
+result5 = requests.put(url5, json=json5)
+print result5.content, result5.status_code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import requests
+
+base_url = 'https://ntudemo2019.firebaseio.com/%s.json'
+url4 = base_url % 'demo4'
+url5 = base_url % 'demo5'
+
+json4 = {'3': 'Newly added', '1': 1.23, '6': u'獅子'}
+result4 = requests.patch(url4, json=json4)
+print result4.status_code, result4.content
+
+json5 = {'instructor':'Mark','duration':36}
+result5 = requests.patch(url5, json=json5)
+print result5.status_code, result5.content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import requests
+
+base_url = 'https://ntudemo2019.firebaseio.com/%s.json'
+url6 = base_url % 'demo6'
+
+for x in range(0, 10):
+    message6 = {'title': 'first message', 'id': 5 + x}
+    result6 = requests.post(url6, json=message6)
+    print result6.status_code, result6.content
