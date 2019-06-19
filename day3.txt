@@ -1,0 +1,973 @@
+# encoding=UTF-8
+import requests
+
+base_url = 'https://ntudemo2019.firebaseio.com/%s.json'
+url1 = base_url % 'demo1'
+url2 = base_url % 'demo2'
+url3 = base_url % 'demo3'
+url4 = base_url % 'demo4'
+url5 = base_url % 'demo5'
+url6 = base_url % 'demo6'
+
+r1 = requests.get(url1)
+print r1.status_code, r1.content
+r2 = requests.get(url2)
+print r2.status_code, r2.content
+r3 = requests.get(url3)
+print r3.status_code, r3.content
+
+r4 = requests.get(url4)
+print r4.status_code, type(r4.content), len(r4.content), r4.content[:10]
+print type(r4.json()), r4.json()
+for item in r4.json():
+    print item,
+print
+
+r5 = requests.get(url5)
+print type(r5.content), type(r5.json())
+for k, v in r5.json().items():
+    print 'k=%s,v=%s' % (str(k), str(v))
+
+r6 = requests.get(url6)
+print type(r6.json())
+for record in r6.json().values():
+    print type(record)
+    for k,v in record.items():
+        print 'item key=%s, value=%s'%(str(k), str(v))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import requests
+
+base_url = 'https://ntudemo2019.firebaseio.com/%s.json'
+url1 = base_url % 'demo1'
+url2 = base_url % 'demo2'
+url3 = base_url % 'demo3'
+url4 = base_url % 'demo4'
+url5 = base_url % 'demo5'
+url6 = base_url % 'demo6'
+
+# r1 = requests.delete(url1)
+# print r1.status_code
+# r2 = requests.delete(url2)
+# print r2.status_code
+# r3 = requests.delete(url3)
+# print r3.status_code
+# r4 = requests.delete(url4)
+# print r4.status_code
+# r5 = requests.delete(url5)
+# print r5.status_code
+# r6 = requests.delete(url6)
+# print r6.status_code
+all_url = base_url%""
+rall = requests.delete(all_url)
+print rall.status_code
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1) new a dir ==> data
+2) data\Python_Introduction
+
+
+file1 = open('data\\Python_Introduction')
+readme_txt = file1.read()
+file1.close()
+print type(readme_txt), len(readme_txt), readme_txt[:21]
+
+with open('data\\Python_Introduction') as file2:
+    readme_txt2 = file2.read().decode('UTF-8')
+
+print type(readme_txt2), len(readme_txt2), readme_txt2[:21]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file1 = open('data\\Python_Introduction')
+readme_txt = file1.read()
+file1.close()
+print type(readme_txt), len(readme_txt), readme_txt[:21]
+
+with open('data\\Python_Introduction') as file2:
+    readme_txt2 = file2.read().decode('UTF-8')
+
+print type(readme_txt2), len(readme_txt2), readme_txt2[:21]
+
+file3 = open('data\\clone1','w')
+file3.write(readme_txt)
+file3.close()
+
+with open('data\\clone2','w') as file4:
+    file4.write(readme_txt2.encode('UTF-8'))
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+with open('data\\Python_Introduction', encoding='UTF-8') as file1:
+    read_txt = file1.read()
+print(type(read_txt),len(read_txt))
+
+with open('data\\clone1', 'w', encoding='UTF-8') as file2:
+    file2.write(read_txt)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+p=u'中文輸入'
+print repr(p)
+print repr(p.encode('UTF-8'))
+print repr(p.encode('ms950'))
+print repr(p.encode('big5'))
+#print p.encode('ms950')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+p = u'中文輸入'
+print repr(p)
+print repr(p.encode('UTF-8'))
+print repr(p.encode('ms950'))
+print repr(p.encode('big5'))
+# print p.encode('ms950')
+new_s = '\xe5\xad\x97'
+print new_s
+print repr(new_s)
+new_latin = new_s.decode('latin-1')
+print repr(new_latin)
+print new_latin
+new_utf8 = new_s.decode('utf-8')
+print repr(new_utf8)
+print new_utf8
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import csv
+
+sampleFile1 = open('data\\data2.csv')
+sampleReader1 = csv.reader(sampleFile1)
+sampleData1 = list(sampleReader1)
+sampleFile1.close()
+
+print type(sampleData1)
+for l in sampleData1:
+    print l
+    for c in l:
+        print 'col=', c
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#encoding=UTF-8
+import Tkinter
+import tkFont
+top = Tkinter.Tk()
+#print tkFont.families()
+for f in tkFont.families():
+    print f
+print
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="Hello world1", pady=30, bg='#C0FFEE', font=myFont)
+label2 = Tkinter.Label(top, text="welcome", padx=30, bg='#FFEEC0', font=myFont)
+label3 = Tkinter.Label(top, text='橫逸資訊', font=myCFont, fg='#990000', bg='#EEFFC0',
+                       padx=20, pady=40)
+label2.pack()
+label1.pack()
+label3.pack()
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+
+def callback1():
+    print "button clicked!"
+
+
+top = Tkinter.Tk()
+# print tkFont.families()
+for f in tkFont.families():
+    print f
+print
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="Hello world1", pady=30, bg='#C0FFEE', font=myFont)
+label2 = Tkinter.Label(top, text="welcome", padx=30, bg='#FFEEC0', font=myFont)
+label3 = Tkinter.Label(top, text='橫逸資訊', font=myCFont, fg='#990000', bg='#EEFFC0',
+                       padx=20, pady=40)
+button1 = Tkinter.Button(top, text='按鈕1', font=myCFont, bg='#000000', fg='#C0FFEE',
+                         command=callback1)
+label2.pack()
+label1.pack()
+label3.pack()
+button1.pack()
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+counter = 0
+
+
+def callback1():
+    global counter
+    label1.config(text="button clicked %d times" % counter)
+    counter += 1
+
+
+counterList = [0]
+
+
+def callback2():
+    label2.config(text='button clicked %d times' % counterList[0])
+    counterList[0] += 1
+
+
+top = Tkinter.Tk()
+# print tkFont.families()
+for f in tkFont.families():
+    print f
+print
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="Hello world1", pady=30, bg='#C0FFEE', font=myFont)
+label2 = Tkinter.Label(top, text="welcome", padx=30, bg='#FFEEC0', font=myFont)
+label3 = Tkinter.Label(top, text='橫逸資訊', font=myCFont, fg='#990000', bg='#EEFFC0',
+                       padx=20, pady=40)
+button1 = Tkinter.Button(top, text='按鈕1', font=myCFont, bg='#000000', fg='#C0FFEE',
+                         command=callback1)
+button2 = Tkinter.Button(top, text='按鈕2', font=myCFont, bg='#0000FF', fg='#C0FF00',
+                         command=callback2)
+
+label2.pack()
+label1.pack()
+label3.pack()
+button1.pack()
+button2.pack()
+top.mainloop()
+
+File/Settings
+Editor/Live Template
+main ==> tkmain
+Description: a simpleUI
+~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+
+def callback1(ev):
+    label.config(text="enter event:", bg='#F00')
+
+
+def callback2(ev):
+    label.config(text="leave event:", bg='#0F0')
+
+
+def callback3():
+    label.config(text='clicked', bg='#FFF')
+
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label = Tkinter.Label(top, text='display callback', bg='#FFF', font=myFont)
+button = Tkinter.Button(top, text='click me', font=myCFont, command=callback3)
+label.pack()
+button.pack()
+button.bind('<Enter>', callback1)
+button.bind('<Leave>', callback2)
+
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+def callback1(ev):
+    label.config(text='lef button single click')
+def callback2(ev):
+    label.config(text='middle button double click')
+def callback3(ev):
+    label.config(text='right button drag')
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label = Tkinter.Label(top, text='display callback', bg='#FFF', font=myFont)
+button = Tkinter.Button(top, text='click me', font=myCFont)
+label.pack()
+button.pack()
+button.bind('<Button-1>',callback1)
+button.bind('<Double-2>',callback2)
+button.bind('<B3-Motion>',callback3)
+top.minsize(400, 300)
+top.mainloop()
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+
+def callback1(ev):
+    message1.config(text='move to[%d,%d]' % (ev.x, ev.y))
+
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+message1 = Tkinter.Message(top, text="display coordinate", font=myCFont, bg='#C0FFEE')
+message1.pack()
+message1.bind('<Motion>', callback1)
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+def callback1():
+    label1.config(text='buy iphonexs max')
+def callback2():
+    label1.config(text='buy pixel4')
+
+top = Tkinter.Tk()
+var1 = Tkinter.IntVar()
+var1.set(1) # option initial value
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="label1", font=myFont)
+rb1 = Tkinter.Radiobutton(top, text='iOS', font=myCFont, value=1, variable=var1, command=callback1)
+rb2 = Tkinter.Radiobutton(top, text='android', font=myCFont, value=2, variable=var1, command=callback2)
+label1.pack()
+rb1.pack()
+rb2.pack()
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+def callback1():
+    label1.config(text='buy iphonexs max')
+def callback2():
+    label1.config(text='buy pixel4')
+
+def callback():
+    if var1.get()==1:
+        label1.config(text='buy iphonexs max')
+    elif var1.get()==2:
+        label1.config(text='buy pixel4')
+
+top = Tkinter.Tk()
+var1 = Tkinter.IntVar()
+var1.set(0) # option initial value
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="label1", font=myFont)
+rb1 = Tkinter.Radiobutton(top, text='iOS', font=myCFont, value=1, variable=var1, command=callback)
+rb2 = Tkinter.Radiobutton(top, text='android', font=myCFont, value=2, variable=var1, command=callback)
+label1.pack()
+rb1.pack()
+rb2.pack()
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+
+def callback1(ev):
+    label1.config(text=message % int(ev))
+
+
+message = 'value=%d'
+top = Tkinter.Tk()
+var1 = Tkinter.IntVar()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text=message % 0, font=myFont)
+scale1 = Tkinter.Scale(top, font=myCFont, orient='h', from_=0, to=100,
+                       showvalue=False, variable=var1, command=callback1)
+label1.pack()
+scale1.pack()
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="input something", font=myCFont)
+entry1 = Tkinter.Entry(top, font=myCFont)
+button1 = Tkinter.Button(top, text='submit', font=myCFont)
+label1.pack()
+entry1.pack()
+button1.pack()
+top.minsize(400, 300)
+top.mainloop()
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import Tkinter
+import tkFont
+
+
+def callback(ev):
+    label1.config(text=entry1.get())
+
+
+top = Tkinter.Tk()
+myFont = tkFont.Font(family='Verdana', size=30)
+myCFont = tkFont.Font(family='Microsoft YaHei UI', size=30)
+label1 = Tkinter.Label(top, text="input something", font=myCFont)
+entry1 = Tkinter.Entry(top, font=myCFont)
+button1 = Tkinter.Button(top, text='submit', font=myCFont)
+entry1.bind('<Return>', callback)
+button1.bind('<Button-1>', callback)
+label1.pack()
+entry1.pack()
+button1.pack()
+top.minsize(400, 300)
+top.mainloop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pip install wikipedia
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+import wikipedia
+
+print wikipedia.summary("Pythonidae")
+print wikipedia.summary("Python")
+print wikipedia.search("C++")
+taipei = wikipedia.page("Taipei")
+print taipei.url, taipei.title
+#print taipei.links[:2]
+for link in taipei.links[:5]:
+    print link
+print taipei.content
+wikipedia.set_lang("zh")
+print wikipedia.summary("Taipei", sentences=3)
+
+
+1) pip install graphviz
+2) install graphviz (windows package)
+3) add to path ==> C:\Program Files (x86)\Graphviz2.38\bin
+4) new a new cmd
+5) set path
+6) gvgen
+7) close and re-open pycharm
+8) gvgen
+
+mkdir graph
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import graphviz as gv
+
+# png, pdf, svg
+#g1 = gv.Graph(format='svg')
+g1 = gv.Digraph(format='svg')
+g1.node('A')
+g1.node('B')
+g1.node('C')
+
+g1.edge('A', 'A')
+g1.edge('A', 'B')
+g1.edge("B", 'C')
+g1.edge('C', 'C')
+
+g1.render('graph\\demo65')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import graphviz as gv
+import itertools
+
+list1 = list('ABCDE')
+
+#g1 = gv.Graph(format='svg')
+g1 = gv.Digraph(format='svg')
+for i in list1:
+    g1.node(i)
+edges = [e for e in itertools.permutations(list1, 2)]
+for e0, e1 in edges:
+    g1.edge(e0, e1)
+g1.render('graph\\demo66')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import functools
+import graphviz as gv
+
+graph = functools.partial(gv.Graph, format='svg')
+digraph = functools.partial(gv.Digraph, format='svg')
+g3 = graph()
+g4 = digraph()
+
+
+def add_nodes(graph, nodes):
+    for n in nodes:
+        if isinstance(n, tuple):
+            pass
+        else:
+            graph.node(n)
+    return graph
+
+
+def add_edges(graph, edges):
+    for e in edges:
+        if isinstance(e[0], tuple):
+            pass
+        else:
+            graph.edge(*e)
+    return graph
+
+
+import itertools
+
+nodes1 = list('ABCD')
+edges1 = [e for e in itertools.combinations(nodes1, 2)]
+g3 = add_nodes(g3, nodes1)
+g3 = add_edges(g3, edges1)
+g3.render('graph\\demo67_g3')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import functools
+import graphviz as gv
+
+graph = functools.partial(gv.Graph, format='svg')
+digraph = functools.partial(gv.Digraph, format='svg')
+g3 = graph()
+g4 = digraph()
+
+
+def add_nodes(graph, nodes):
+    for n in nodes:
+        if isinstance(n, tuple):
+            graph.node(n[0],**n[1])
+        else:
+            graph.node(n)
+    return graph
+
+
+def add_edges(graph, edges):
+    for e in edges:
+        if isinstance(e[0], tuple):
+            pass
+        else:
+            graph.edge(*e)
+    return graph
+
+
+import itertools
+
+nodes1 = list('ABCD')
+edges1 = [e for e in itertools.combinations(nodes1, 2)]
+g3 = add_nodes(g3, nodes1)
+g3 = add_edges(g3, edges1)
+g3.render('graph\\demo67_g3')
+
+nodeA = ('A',{'label':'Toyota'})
+nodeB = ('B',{'label':'Lexus'})
+nodeC = ('C',{'label':'Ford'})
+nodeD = ('D',{'label':'Nissan'})
+nodes2 = [nodeA, nodeB, nodeC, nodeD]
+g4 = add_nodes(g4, nodes2)
+g4.render('graph\\demo67_g4')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import functools
+import graphviz as gv
+
+graph = functools.partial(gv.Graph, format='svg')
+digraph = functools.partial(gv.Digraph, format='svg')
+g3 = graph()
+g4 = digraph()
+
+
+def add_nodes(graph, nodes):
+    for n in nodes:
+        if isinstance(n, tuple):
+            graph.node(n[0], **n[1])
+        else:
+            graph.node(n)
+    return graph
+
+
+def add_edges(graph, edges):
+    for e in edges:
+        if isinstance(e[0], tuple):
+            graph.edge(*e[0], **e[1])
+        else:
+            graph.edge(*e)
+    return graph
+
+
+import itertools
+
+nodes1 = list('ABCD')
+edges1 = [e for e in itertools.combinations(nodes1, 2)]
+g3 = add_nodes(g3, nodes1)
+g3 = add_edges(g3, edges1)
+g3.render('graph\\demo67_g3')
+
+nodeA = ('A', {'label': 'Toyota'})
+nodeB = ('B', {'label': 'Lexus'})
+nodeC = ('C', {'label': 'Ford'})
+nodeD = ('D', {'label': 'Nissan'})
+nodes2 = [nodeA, nodeB, nodeC, nodeD]
+g4 = add_nodes(g4, nodes2)
+edgeAB = (('A', 'B'), {'label': 'same holding company'})
+edgeAC = (('A', 'C'), {'label': 'popular company'})
+edgeBD = (('B', 'D'), {'label': 'formula racing'})
+edges2 = [edgeAB, edgeAC, edgeBD]
+g4 = add_edges(g4, edges2)
+g4.render('graph\\demo67_g4')
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = True
+b = a and 123
+print b
+
+c = False
+d = c or 500
+print d
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import functools
+import graphviz as gv
+
+graph = functools.partial(gv.Graph, format='svg')
+digraph = functools.partial(gv.Digraph, format='svg')
+g3 = graph()
+g4 = digraph()
+
+
+def add_nodes(graph, nodes):
+    for n in nodes:
+        if isinstance(n, tuple):
+            graph.node(n[0], **n[1])
+        else:
+            graph.node(n)
+    return graph
+
+
+def add_edges(graph, edges):
+    for e in edges:
+        if isinstance(e[0], tuple):
+            graph.edge(*e[0], **e[1])
+        else:
+            graph.edge(*e)
+    return graph
+
+
+import itertools
+
+nodes1 = list('ABCD')
+edges1 = [e for e in itertools.combinations(nodes1, 2)]
+g3 = add_nodes(g3, nodes1)
+g3 = add_edges(g3, edges1)
+g3.render('graph\\demo67_g3')
+
+nodeA = ('A', {'label': 'Toyota'})
+nodeB = ('B', {'label': 'Lexus'})
+nodeC = ('C', {'label': 'Ford'})
+nodeD = ('D', {'label': 'Nissan'})
+nodes2 = [nodeA, nodeB, nodeC, nodeD]
+g4 = add_nodes(g4, nodes2)
+edgeAB = (('A', 'B'), {'label': 'same holding company'})
+edgeAC = (('A', 'C'), {'label': 'popular company'})
+edgeBD = (('B', 'D'), {'label': 'formula racing'})
+edges2 = [edgeAB, edgeAC, edgeBD]
+g4 = add_edges(g4, edges2)
+g4.render('graph\\demo67_g4')
+
+
+def apply_style(graph, styles):
+    graph.graph_attr.update((('graph' in styles) and styles['graph']) or {})
+    return graph
+
+
+styles = {'graph': {
+    'label': u'家用車市場',
+    'fontsize': '24',
+    'fontcolor': '#002299',
+    'bgcolor': '#C0FFEE',
+    'rankdir': 'BT',
+    'fillcolor': '#FFEEC0'
+}}
+
+g5 = digraph()
+g5 = apply_style(g4, styles)
+g5.render('graph\\demo67_g5')
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+import functools
+import graphviz as gv
+
+graph = functools.partial(gv.Graph, format='svg')
+digraph = functools.partial(gv.Digraph, format='svg')
+g3 = graph()
+g4 = digraph()
+
+
+def add_nodes(graph, nodes):
+    for n in nodes:
+        if isinstance(n, tuple):
+            graph.node(n[0], **n[1])
+        else:
+            graph.node(n)
+    return graph
+
+
+def add_edges(graph, edges):
+    for e in edges:
+        if isinstance(e[0], tuple):
+            graph.edge(*e[0], **e[1])
+        else:
+            graph.edge(*e)
+    return graph
+
+
+import itertools
+
+nodes1 = list('ABCD')
+edges1 = [e for e in itertools.combinations(nodes1, 2)]
+g3 = add_nodes(g3, nodes1)
+g3 = add_edges(g3, edges1)
+g3.render('graph\\demo67_g3')
+
+nodeA = ('A', {'label': 'Toyota'})
+nodeB = ('B', {'label': 'Lexus'})
+nodeC = ('C', {'label': 'Ford'})
+nodeD = ('D', {'label': 'Nissan'})
+nodes2 = [nodeA, nodeB, nodeC, nodeD]
+g4 = add_nodes(g4, nodes2)
+edgeAB = (('A', 'B'), {'label': 'same holding company'})
+edgeAC = (('A', 'C'), {'label': 'popular company'})
+edgeBD = (('B', 'D'), {'label': 'formula racing'})
+edges2 = [edgeAB, edgeAC, edgeBD]
+g4 = add_edges(g4, edges2)
+g4.render('graph\\demo67_g4')
+
+
+def apply_style(graph, styles):
+    graph.graph_attr.update((('graph' in styles) and styles['graph']) or {})
+    graph.node_attr.update((('nodes' in styles) and styles['nodes']) or {})
+    graph.edge_attr.update((('edges' in styles) and styles['edges']) or {})
+    return graph
+
+
+styles = {'graph': {
+    'label': u'家用車市場',
+    'fontsize': '24',
+    'fontcolor': '#002299',
+    'bgcolor': '#C0FFEE',
+    'rankdir': 'BT',
+    'fillcolor': '#FFEEC0'},
+    'nodes': {
+        'fontname': 'Consolas',
+        'fontsize': '24',
+        'shape': 'box',
+        'style': 'filled',
+        'fillcolor': '#C0EEFF'
+    },
+    'edges': {
+        'style': 'dotted',
+        'color': '#442299',
+        'arrowhead': 'open',
+        'fontname': 'COurier',
+        'fontsize': '24',
+        'fontcolor': '#994422'
+    }
+}
+
+g5 = digraph()
+g5 = apply_style(g4, styles)
+g5.render('graph\\demo67_g5')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class MyClass:
+    pass
+print "my class type:", type(MyClass)
+i1 = MyClass()
+print "i1 type:", type(i1)
+print "i1 class:", i1.__class__
+print "i1 class bases:", i1.__class__.__bases__
+print "i1 type equal to myClass?", type(i1) == MyClass
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class MyClass:
+    pass
+
+
+print("my class type:", type(MyClass))
+i1 = MyClass()
+print("i1 type:", type(i1))
+print("i1 class:", i1.__class__)
+print("i1 class bases:", i1.__class__.__bases__)
+print("i1 type equal to myClass?", type(i1) == MyClass)
+
+
+print "********"
+class MyClass2(object):
+    pass
+
+
+print "my class type:", type(MyClass2)
+i2 = MyClass2()
+print "i2 type:", type(i2)
+print "i2 class:", i2.__class__
+print "i2 class bases:", i2.__class__.__bases__
+print "i2 type equal to myClass?", type(i2) == MyClass2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Car:
+    vender = 'Lexus'
+    valid = True
+
+print Car.vender, Car.valid
+Car.function = True
+print Car.function
+c1 = Car()
+c1.color='red'
+print c1.vender, c1.valid, c1.function, c1.color
+c2 = Car()
+c2.capacity=7
+print c2.vender, c2.valid, c2.function, c2.capacity
+Car.maximum = 10000
+print Car.maximum, c1.maximum, c2.maximum
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Team:
+    name = 'Normal Team'
+
+
+team1 = Team()
+print team1.name
+team1.name = 'R&D Team'
+team2 = Team()
+print team1.name, team2.name, Team.name
+del team1.name
+print team1.name, team2.name, Team.name
+team1.member = 9
+print team1.name, team1.member
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Team:
+    member = 7
+
+    def working_hour(self):
+        return self.day
+
+    def all_working_hour(self):
+        self.day = 7
+        return self.day * self.member
+
+    @classmethod
+    def get_member(cls):
+        return cls.member
+
+    @staticmethod
+    def calculate(x, y):
+        return x ** y
+
+
+t1 = Team()
+print t1.all_working_hour()
+print t1.working_hour()
+print t1.get_member(), Team.get_member()
+print t1.calculate(2, 3), Team.calculate(3, 2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def calculate_area(self):
+        return self.width * self.height
+
+
+r1 = Rectangle(3, 4)
+r2 = Rectangle(5, 6)
+print r1.width, r1.height, r1.calculate_area()
+print r2.width, r2.height, r2.calculate_area()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Emp:
+    gradeLevel = 6
+    def startWork(self):
+        pass
+    def endWork(self):
+        pass
+class RD(Emp):
+    pass
+class PM(Emp):
+    pass
+
+print "RD, PM, Emp grade level=", RD.gradeLevel, PM.gradeLevel, Emp.gradeLevel
+RD.gradeLevel = 7
+print "RD, PM, Emp grade level=", RD.gradeLevel, PM.gradeLevel, Emp.gradeLevel
+Emp.gradeLevel = 8
+print "RD, PM, Emp grade level=", RD.gradeLevel, PM.gradeLevel, Emp.gradeLevel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Emp:
+    gradeLevel = 6
+
+    def startWork(self):
+        pass
+
+    def endWork(self):
+        pass
+
+    pass
+
+
+class RD(Emp):
+    def __init__(self):
+        self.currentGrade = self.gradeLevel
+
+    def startWork(self):
+        print "[%d] start R&D work" % self.currentGrade
+
+    def endWork(self):
+        print "[%d] end R&D work" % self.currentGrade
+rd1 = RD()
+print Emp.gradeLevel, RD.gradeLevel, rd1.currentGrade, rd1.gradeLevel
+rd1.currentGrade = 8
+print Emp.gradeLevel, RD.gradeLevel, rd1.currentGrade, rd1.gradeLevel
+rd1.startWork()
+rd1.endWork()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Emp:
+    pass
+
+
+class Engineer(Emp):
+    pass
+
+
+class Pm(Emp):
+    pass
+
+
+class Hr(Emp):
+    pass
+
+
+emp1 = Emp()
+engineer1 = Engineer()
+pm1 = Pm()
+hr1 = Hr()
+staffs = [(emp1, "First Employee"), (engineer1, "First Engineer"), (pm1, "First PM"), (hr1, "First HR")]
+emp_classes = [Emp, Pm, Hr, Engineer]
+
+for staff, name in staffs:
+    print '----------------------------'
+    for emp_class in emp_classes:
+        isA = isinstance(staff, emp_class)
+        msg1 = 'is a' if isA else 'is not a'
+        print name, msg1, emp_class.__name__
+
+for c1 in emp_classes:
+    for c2 in emp_classes:
+        isSubclass = issubclass(c1, c2)
+        message = '{0} a subclass of'.format('is' if isSubclass else 'is not')
+        print c1.__name__, message, c2.__name__
+
+pip install ipython matplotlib pyreadline pandas numpy pandas-datareader
+pip install ipython[notebook]
