@@ -1,0 +1,654 @@
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(np.random.randn(6, 7), index=list(range(0, 12, 2)),
+                   columns=list(range(0, 7, 1)))
+
+print df1
+
+mkdir c:\Users\Admin\notebook
+cd c:\Users\Admin\notebook
+
+jupyter-notebook
+New Python2
+
+demo77_pandas
+
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(np.random.randn(6, 7), index=list(range(0, 12, 2)),
+                   columns=list(range(0, 7, 1)))
+
+~~~~~~~~~~~~~~~~~~~~~~~
+df1
+~~~~~~~~~~~~~~~~~~~~~~~
+df1[1:3]
+~~~~~~~~~~~~~~~~~~~~~~
+df1[:3]
+~~~~~~~~~~~~~~~~~~~~~
+df1[3:]
+~~~~~~~~~~~~~~~~~~~~~~
+df1.iloc[:3]
+~~~~~~~~~~~~~~~~~~~~
+df1.iloc[3:]
+~~~~~~~~~~~~~~~~~~~~~~
+df1.iloc[:,:3]
+result1.shape
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+result1.iloc[:,2:]
+~~~~~~~~~~~~~~~~~~~~~
+df1.iloc[:,3:]
+~~~~~~~~~~~~~~~~~~~~~~~
+df1.iloc[1:3, 2:4]
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+demo78_pandas_wb
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas_datareader.wb as wb
+result1=wb.search(string='SE.PRM.TENR', field='id')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+result1.shape
+~~~~~~~~~~~~~~~~~~~~~~~
+result1.iloc[:,2:]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+result1.iloc[:,:2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+result1.iloc[:,1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type(result1.iloc[:,1])
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+result1.iloc[0,1]
+result1.iloc[1,1]
+result1.iloc[2,1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas as pd
+import pandas_datareader.wb as wb
+
+data1 = wb.download(
+    indicator='SE.PRM.TENR',
+    country=['all'],
+    start='2002',
+    end='2016'
+)
+
+print type(data1)
+print data1.shape
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+demo79_net_enrollment
+
+data1.head()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data2 = data1.reset_index()
+data2.head()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data2.shape
+data2.country.unique()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data4 = data2[data2.country=='Brazil']
+data4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+max_index = data2.groupby(['country'])['SE.PRM.TENR'].transform(max)==data2['SE.PRM.TENR']
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data3 = data2[max_index]
+data3
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+import matplotlib.pyplot as plt
+
+x = range(10)
+plt.plot(x)
+plt.xlabel('quantity')
+plt.ylabel('price')
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#matplotlib inline
+import matplotlib.pyplot as plt
+
+x = range(10)
+plt.plot(x)
+plt.xlabel('quantity')
+plt.ylabel('price')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+nx = np.array(x)
+ny = nx**2
+plt.plot(nx,ny)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+nx = np.array(x)
+ny = nx**2
+#rgb
+#o.s^*
+plt.plot(nx,ny,'g*')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+t = np.arange(0,2,0.1)
+plt.plot(t,t,'ro',t,t**2,'gs',t,t**3,'b^')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+t = np.arange(0,2,0.1)
+plt.plot(t,t,'ro--',t,t**2,'gs--',t,t**3,'b^--',linewidth=6)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+t = np.arange(0,10,0.5)
+plt.figure(1)
+plt.subplot(311)
+plt.plot(t,t,'r-')
+plt.subplot(312)
+plt.plot(t,t**2,'g--')
+plt.subplot(313)
+plt.plot(t,t**3,'b--')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, ax = plt.subplots()
+x = np.arange(0, 2 * np.pi, 0.01)
+line, = ax.plot(x, np.sin(x))
+
+
+def animate(i):
+    line.set_ydata(np.sin(x + i / 5.0))
+    return line,
+
+
+def init():
+    line.set_ydata(np.ma.array(x, mask=True))
+    return line,
+
+ani = animation.FuncAnimation(fig, animate, np.arange(1, 400),
+                              init_func=init, interval=500, blit=True)
+plt.show()
+ani = animation.FuncAnimation(fig, animate, np.arange(1, 400, 0.1),
+                              init_func=init, interval=50, blit=True)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import numpy as np
+
+mu = 80
+sigma = 8
+X = mu+sigma*np.random.randn(10000)
+print len(X)
+num_bins = 50
+plt.hist(X, num_bins, density=1, facecolor='blue')
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import numpy as np
+
+mu = 80
+sigma = 8
+X = mu+sigma*np.random.randn(10000)
+print len(X)
+num_bins = 50
+n, bins, patches = plt.hist(X, num_bins, density=1, facecolor='blue')
+y = mlab.normpdf(bins, mu, sigma)
+plt.plot(bins, y, 'r--')
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cmd
+pip install scipy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+
+mu = 80
+sigma = 8
+X = mu + sigma * np.random.randn(10000)
+print len(X)
+num_bins = 50
+n, bins, patches = plt.hist(X, num_bins, density=1, facecolor='blue')
+y = norm.pdf(bins, mu, sigma)
+plt.plot(bins, y, 'r--')
+plt.xlabel('sample data')
+plt.ylabel('frequency')
+plt.title('demo1')
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+
+l1 = [1, 2, 3, 4, 5]
+l2 = [5, 4, 3, 2, 1]
+print l1 + l2
+a1 = np.array(l1)
+a2 = np.array(l2)
+print a1 + a2, a1-a2, a1*a2, a1/a2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1 = np.linspace(0.0, 5.0)
+x2 = np.linspace(0.0, 2.0)
+x3 = np.linspace(0.1, 10.0)
+
+y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
+
+plt.subplot(3, 1, 1)
+plt.plot(x1, y1, 'yo-')
+plt.title('')
+plt.ylabel('figure')
+
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1 = np.linspace(0.0, 5.0)
+x2 = np.linspace(0.0, 2.0)
+x3 = np.linspace(0.1, 10.0)
+
+y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
+y2 = np.cos(2 * np.pi * x2)
+y3 = np.tan(x3) * np.log2(x3)
+plt.subplot(3, 1, 1)
+plt.plot(x1, y1, 'yo-')
+plt.title('')
+plt.ylabel('figure1')
+
+plt.subplot(312)
+plt.plot(x2, y2, 'r*--')
+plt.title('')
+plt.ylabel('figure2')
+
+plt.subplot(313)
+plt.plot(x3, y3, 'g.-', linewidth=2)
+plt.title('')
+plt.ylabel('figure3')
+
+plt.show()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pip install openpyxl
+~!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas
+from matplotlib import pyplot, rc
+
+data1 = pandas.read_csv('data\\data3.csv', skiprows=4, index_col='Country Name')
+print data1.shape
+data1.to_excel('data\\pandas_output.xlsx', sheet_name='population')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas
+from matplotlib import pyplot, rc
+
+data1 = pandas.read_csv('data\\data3.csv', skiprows=4, index_col='Country Name')
+print data1.shape
+data1.to_excel('data\\pandas_output.xlsx', sheet_name='population')
+print data1.head()
+print data1.columns
+print data1['1960'].mean(), data1['1960'].std(), data1['1960'].median()
+data1['alpha'] = data1['1960'] + data1['1970'] + data1['1980']
+print data1.columns
+print data1['Country Code']
+belData = data1[data1['Country Code'] == 'BEL']
+print belData
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas
+from matplotlib import pyplot, rc
+
+data1 = pandas.read_csv('data\\data3.csv', skiprows=4, index_col='Country Name')
+print data1.shape
+data1.to_excel('data\\pandas_output.xlsx', sheet_name='population')
+print data1.head()
+print data1.columns
+print data1['1960'].mean(), data1['1960'].std(), data1['1960'].median()
+data1['alpha'] = data1['1960'] + data1['1970'] + data1['1980']
+print data1.columns
+print data1['Country Code']
+belData = data1[data1['Country Code'] == 'BEL']
+print belData
+selected_years = ['1960', '1970', '1980']
+font = {'family': 'Courier New'}
+rc('font', **font)
+print pyplot.style.available
+pyplot.style.use('seaborn-notebook')
+belData.plot(kind='bar', figsize=(12, 6), y=selected_years, fontsize=10)
+pyplot.show()
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import pandas
+from matplotlib import pyplot, rc
+
+data1 = pandas.read_csv('data\\data3.csv', skiprows=4, index_col='Country Name')
+print data1.shape
+data1.to_excel('data\\pandas_output.xlsx', sheet_name='population')
+print data1.head()
+print data1.columns
+print data1['1960'].mean(), data1['1960'].std(), data1['1960'].median()
+data1['alpha'] = data1['1960'] + data1['1970'] + data1['1980']
+print data1.columns
+print data1['Country Code']
+belData = data1[data1['Country Code'] == 'BEL']
+print belData
+selected_years = ['1960', '1970', '1980']
+font = {'family': 'Courier New'}
+rc('font', **font)
+print pyplot.style.available
+pyplot.style.use('seaborn-notebook')
+belData.plot(kind='bar', figsize=(12, 6), y=selected_years, fontsize=10)
+# pyplot.show()
+
+print data1.info()
+print data1.describe()
+data2 = data1.sort_values(by=['1980'],ascending=False)
+print data2['1980'].head(n=20)
+
+
+https://web.bola.taipei/bolasearch/chhtml/page/20
+~~~~~~~~~~~~~~~~~~~~~~~
+import pandas
+
+data1 = pandas.read_csv('data\\data4.csv')
+print data1.columns
+
+jupyter
+data
+
+
+demo81_labor_law
+
+import pandas
+data1 = pandas.read_csv('data\\data4.csv')
+data1.columns
+
+data2 = data1[['處分字號','違反勞動基準法條款']].groupby(['違反勞動基準法條款']).count()
+type(data2)
+
+data2.sort_values(by='處分字號',ascending=False)
+
+data3 = data1[['處分字號','違反勞動基準法條款','違反法規內容']].groupby(['違反勞動基準法條款','違反法規內容']).count()
+data3.head()
+
+data3.sort_values(by='處分字號',ascending=False)
+
+https://data.taipei/#/dataset/detail?id=a835f3ba-7f50-4b0d-91a6-9df128632d1c
+
+pip install folium
+mkdir map
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import folium
+import pandas as pd
+
+sample_data = pd.read_csv('data\\data5_utf8.csv', sep=',')
+print sample_data.columns, sample_data.shape
+sample_data.columns = ['section','road','road_detail','lon','lat','extra']
+print sample_data.head()
+
+location1 = [25.052833, 121.544158]
+zoom = 16
+map_osm = folium.Map(location=location1, zoom_start=zoom)
+
+map_osm.save('map\\demo86.html')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import folium
+import pandas as pd
+
+sample_data = pd.read_csv('data\\data5_utf8.csv', sep=',')
+print sample_data.columns, sample_data.shape
+sample_data.columns = ['section', 'road', 'road_detail', 'lon', 'lat', 'extra']
+print sample_data.head()
+
+location1 = [25.052833, 121.544158]
+zoom = 16
+map_osm = folium.Map(location=location1, zoom_start=zoom)
+
+for i in range(len(sample_data)):
+    coordinate = [sample_data.ix[i, 'lat'], float(sample_data.ix[i, 'lon'])]
+    folium.Marker(coordinate,
+                  icon=folium.Icon(color='green', icon='info-sign'),
+                  popup=None).add_to(map_osm)
+    print coordinate
+
+map_osm.save('map\\demo86.html')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import folium
+import pandas as pd
+
+sample_data = pd.read_csv('data\\data5_utf8.csv', sep=',')
+print sample_data.columns, sample_data.shape
+sample_data.columns = ['section', 'road', 'road_detail', 'lon', 'lat', 'extra']
+print sample_data.head()
+
+location1 = [25.052833, 121.544158]
+zoom = 16
+map_osm = folium.Map(location=location1, zoom_start=zoom)
+
+for i in range(len(sample_data)):
+    coordinate = [float(sample_data.ix[i, 'lat']), float(sample_data.ix[i, 'lon'])]
+    message = '%s,%s' % (sample_data.ix[i, 'road'], sample_data.ix[i, 'road_detail'])
+    message = unicode(message, 'utf-8')
+    folium.Marker(coordinate,
+                  icon=folium.Icon(color='blue', icon='info-sign'),
+                  popup=message).add_to(map_osm)
+    print coordinate
+
+map_osm.save('map\\demo86.html')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import folium
+import pandas as pd
+
+sample_data = pd.read_csv('data\\data5_utf8.csv', sep=',')
+print sample_data.columns, sample_data.shape
+sample_data.columns = ['section', 'road', 'road_detail', 'lon', 'lat', 'extra']
+print sample_data.head()
+
+location1 = [25.052833, 121.544158]
+zoom = 16
+map_osm = folium.Map(location=location1, zoom_start=zoom)
+
+for i in range(len(sample_data)):
+    coordinate = [float(sample_data.ix[i, 'lat']), float(sample_data.ix[i, 'lon'])]
+    message = '%s,%s' % (sample_data.ix[i, 'road'], sample_data.ix[i, 'road_detail'])
+    message = unicode(message, 'utf-8')
+    folium.Marker(coordinate,
+                  icon=folium.Icon(color='blue', icon='info-sign'),
+                  popup=message).add_to(map_osm)
+    print coordinate
+
+dorm1 = [25.051899, 121.552183]
+dorm2 = [25.042374, 121.558899]
+folium.CircleMarker(dorm1, radius=200, popup='small dorm',
+                    fill_color='#C0FFEE').add_to(map_osm)
+folium.Circle(dorm2, radius=200, popup='dorm',
+              fill_color='#FFEEC0').add_to(map_osm)
+
+map_osm.save('map\\demo86.html')
+https://www.oracle.com/technetwork/java/javase/downloads/index.html#JDK8
+
+C:\Java\jdk1.8.0_211\
+
+check
+C:\Java\jdk1.8.0_211 exists
+
+JAVA_HOME
+
+C:\Java\jdk1.8.0_211\
+
+Path append:
+%JAVA_HOME%\bin
+
+set JAVA
+==> %JAVA_HOME%\bin
+
+javac -version
+java -version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sqlite3
+
+connection1 = sqlite3.connect('db\\sqlite3_lab1.sqlite')
+print "open db success"
+connection1.close()
+
+
+https://sqlitebrowser.org/
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sqlite3
+
+connection1 = sqlite3.connect('db\\sqlite3_lab1.sqlite')
+print "open db success"
+drop_sql = 'DROP TABLE IF EXISTS EMPLOYEE;'
+create_sql = '''
+CREATE TABLE EMPLOYEE
+(ID INTEGER PRIMARY KEY,
+ NAME TEXT NOT NULL,
+ AGE INT NOTE NULL,
+ DEPT INT,
+ ADDRESS CHAR(50)
+ );
+'''
+print "clean up db"
+connection1.execute(drop_sql)
+print "create db"
+connection1.execute(create_sql)
+connection1.close()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sqlite3
+
+connection1 = sqlite3.connect('db\\sqlite3_lab1.sqlite')
+print "open db success"
+drop_and_create_sql = '''
+DROP TABLE IF EXISTS EMPLOYEE;
+CREATE TABLE EMPLOYEE
+(ID INTEGER PRIMARY KEY,
+ NAME TEXT NOT NULL,
+ AGE INT NOTE NULL,
+ DEPT INT,
+ ADDRESS CHAR(50)
+ );
+'''
+
+print "create db"
+connection1.executescript(drop_and_create_sql)
+connection1.close()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sqlite3
+
+connection1 = sqlite3.connect('db\\sqlite3_lab1.sqlite')
+
+employees = [{'NAME': 'Mark', "AGE": 38, 'DEPT': 1, 'ADDR': 'Taipei'},
+             {'NAME': 'John', "AGE": 43, 'DEPT': 2, 'ADDR': 'Hsinchu'},
+             {'NAME': 'James', "AGE": 47, 'DEPT': 1, 'ADDR': 'Taipei'}]
+
+INSERT_DML = "INSERT INTO EMPLOYEE(NAME, AGE, DEPT, ADDRESS) VALUES(?,?,?,?)"
+
+for e in employees:
+    connection1.execute(INSERT_DML, (e['NAME'],e['AGE'],e['DEPT'],e['ADDR']));
+    print ".",
+
+print
+
+connection1.commit()
+connection1.close()
+select count(*) from EMPLOYEE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sqlite3
+import time
+
+connection1 = sqlite3.connect('db\\sqlite3_lab1.sqlite')
+
+employees = [{'NAME': 'Mark', "AGE": 38, 'DEPT': 1, 'ADDR': 'Taipei'},
+             {'NAME': 'John', "AGE": 43, 'DEPT': 2, 'ADDR': 'Hsinchu'},
+             {'NAME': 'James', "AGE": 47, 'DEPT': 1, 'ADDR': 'Taipei'}]
+
+INSERT_DML = "INSERT INTO EMPLOYEE(NAME, AGE, DEPT, ADDRESS) VALUES(?,?,?,?)"
+
+start_time = time.time()
+
+for i in range(1000):
+    for e in employees:
+        connection1.execute(INSERT_DML, (e['NAME'], e['AGE'], e['DEPT'], e['ADDR']));
+        connection1.commit()
+    #connection1.commit() # 11.49
+#connection1.commit() # 0.026
+connection1.close()
+end_time = time.time()
+print ('total:', end_time - start_time)
+
+IntelliJ ==> 64-bit launcher
+
+https://www.sqlalchemy.org/
+
+pip install sqlalchemy
+
+Do not import settings
+white
+skip remaining and set default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    fullname = Column(String)
+    password = Column(String)
+
+    def __repr__(self):
+        return "<User(name='%s', fullname='%s', password='%s')>" % (self.name, self.fullname,
+                                                                    self.password)
+
+    def __str__(self):
+        return repr(self)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from demo90 import User, Base
+
+engine = create_engine('sqlite:///:memory:', echo=True)
+print([User.__tablename__, User.__table__])
+Base.metadata.create_all(engine)
+
+Session1 = sessionmaker(bind=engine)
+session1 = Session1()
+user1 = User(name='user1', fullname='User one', password='ucom')
+user2 = User(name='user2', fullname='User two', password='uuu')
+session1.add(user1)
+session1.add(user2)
+session1.commit()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from demo90 import User, Base
+
+engine = create_engine('sqlite:///:memory:', echo=True)
+print([User.__tablename__, User.__table__])
+Base.metadata.create_all(engine)
+
+Session1 = sessionmaker(bind=engine)
+session1 = Session1()
+user1 = User(name='user1', fullname='User one', password='ucom')
+user2 = User(name='user2', fullname='User two', password='uuu')
+session1.add(user1)
+session1.add(user2)
+session1.commit()
+
+# session1 = Session1()
+all_users = session1.query(User)
+for i in all_users:
+    print "get a user:", i
+# session1.commit()
+session3 = Session1()
+userToModify = session3.query(User).filter_by(name='user1').first()
+print "[i]current dirty object list:", [session3.dirty]
+userToModify.fullname = 'Mark Ho'
+print "[ii]current dirty object list:", [session3.dirty]
+session3.commit()
+all_users2 = session3.query(User)
+for i in all_users2:
+    print "[II]:get a user:", i
+
+
+
+
