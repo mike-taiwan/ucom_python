@@ -1,0 +1,499 @@
+1) QWERTY keyboard
+
+www.python.org
+
+https://www.jetbrains.com/pycharm/
+
+remove 2018.1.4
+remove history
+remove plugins
+(tick)64-bit launcher
+
+Do not import settings
+
+Light
+Skip Remaining and set defaults
+
+Python2 install
+
+(install for all users)
+
+Add Python.exe to Path (tick)
+c:\python27
+c:\python27\Scripts
+new a cmd
+
+set path
+you should see:==>Path=C:\Python27\;C:\Python27\Scripts
+pip list
+python
+quit()
+
+Custom installation
+C:\python\python37
+(tick) disable path length limit
+
+after install, new a cmd
+
+cd c:\python\python37
+python
+quit()
+cd c:\python\python37\Scripts
+pip list
+pip show pip
+
+
+pip install -U setuptools
+pip list
+
+
+cd C:\Python\Python37\Scripts
+pip install -U setuptools
+pip list
+
+
+p2 update pip
+python -m pip install --upgrade pip
+
+cd C:\Python\Python37
+python -m pip install --upgrade pip
+
+pip list
+c:\Python\Python37\Scripts\pip list
+(Both 2.7, 3.7 should see)
+Package    Version
+---------- -------
+pip        19.1.1
+setuptools 41.0.1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pip show tensorflow
+pip search tensorflow
+
+pip install virtualenv
+C:\Python\Python37\Scripts>pip install virtualenv
+
+Package    Version
+---------- -------
+pip        19.1.1
+setuptools 41.0.1
+virtualenv 16.6.1
+(python2 only)
+pip install virtualenvwrapper virtualenvwrapper-win
+
+pip list
+(you should see)
+Package               Version
+--------------------- -------
+pbr                   5.3.0
+pip                   19.1.1
+setuptools            41.0.1
+six                   1.12.0
+stevedore             1.30.1
+virtualenv            16.6.1
+virtualenv-clone      0.5.3
+virtualenvwrapper     4.8.4
+virtualenvwrapper-win 1.2.5
+
+mkdir c:\python_virtualenv
+cd c:\python_virtualenv
+virtualenv env1
+
+
+cd c:\python_virtualenv
+env1\Scripts\activate
+
+pip list
+pip show pip
+deactivate
+
+
+mkvirtualenv env2
+deactivate
+workon env2
+workon
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configure/Plugin
+markdown (already installed)
+
+Configure/Settings/Project Intepreter
+Gear wheel/Add
+System Intepreter
+2.7, OK, apply OK
+
+3.7, OK, apply OK
+
+BDPY27
+Existing intepreter
+Intepreter ==> C:\python27\python
+
+File/New Project
+BDPY37
+Existing intepreter
+Python3.7 ==> C:\python\python37\python
+
+create/new window
+
+new demo0_hello_world
+
+print "Hello World1lI"
+
+Editor/Font
+Source code pro 18
+
+Help
+Edit Custom VM Options
+-Xms128m
+-Xmx750m
+
+-Xms1536m
+-Xmx2048m
+
+File/Settings
+Appearance&Behavior
+System-
+
+demo2_ide2
+
+def get_digit(x):
+    returnDigit = 0
+    while x > 0:
+        returnDigit += 1
+        x /= 10
+    return returnDigit
+
+
+print "12345 has digit:", get_digit(12345)
+print "2^512 has digit:", get_digit(2**512)
+
+def get_digit(x):
+    returnDigit = 0
+    while x > 0:
+        returnDigit += 1
+        x /= 10
+        return returnDigit
+
+debug @ line2 (returnDigit)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def get_digit(x):
+    returnDigit = 0
+    while x > 0:
+        returnDigit += 1
+        x /= 10
+    return returnDigit
+
+
+print("12345 has digit:", get_digit(12345))
+print("2^512 has digit:", get_digit(2 ** 512))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def get_digit(x):
+    returnDigit = 0
+    while x > 0:
+        returnDigit += 1
+        x //= 10
+    return returnDigit
+
+
+print("12345 has digit:", get_digit(12345))
+print("2^512 has digit:", get_digit(2 ** 512))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print 4 / 2, 5 / 2, 6 / 2, 7 / 2
+print 4 // 2, 5 // 2, 6 // 2, 7 // 2
+print 4 / 2.0, 5.0 / 2, 6.0 / 2.0, 7.0 / 3.0
+print 4 // 2.0, 5.0 // 2, 6.0 // 2.0, 7.0 // 3.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print(4 / 2, 5 / 2, 6 / 2, 7 / 2)
+print(4 // 2, 5 // 2, 6 // 2, 7 // 2)
+print(4 / 2.0, 5.0 / 2, 6.0 / 2.0, 7.0 / 3.0)
+print(4 // 2.0, 5.0 // 2, 6.0 // 2.0, 7.0 // 3.0)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print round(2.1), round(2.4), round(2.5), round(2.6)
+print round(3.1), round(3.4), round(3.5), round(3.6)
+print round(4.1), round(4.4), round(4.5), round(4.6)
+
+print(round(2.1), round(2.4), round(2.5), round(2.6))
+print(round(3.1), round(3.4), round(3.5), round(3.6))
+print(round(4.1), round(4.4), round(4.5), round(4.6))
+
+
+print round(100.5), round(101.5), round(102.5), round(103.5)
+
+print(round(100.5), round(101.5), round(102.5), round(103.5))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def get_digit(x):
+    """
+
+    :type x: int or float
+    """
+    returnDigit = 0
+    while x > 0:
+        returnDigit += 1
+        x /= 10
+    return returnDigit
+
+
+print "12345 has digit:", get_digit(12345)
+print "2^512 has digit:", get_digit("2**512")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print ""
+print "Hello"
+print "Welcome Mark"
+print '''Hi I am Mark,
+I live in Taipei'''
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print("")
+print("Hello")
+print("Welcome Mark")
+print('''Hi I am Mark,
+I live in Taipei''')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+print "" #中文
+print "Hello"
+print "Welcome Mark"
+print '''Hi I am Mark,
+I live in Taipei'''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+print "#中文"  # 中文
+var2 = u"Hello"
+print type(var2), var2
+var1 = "Welcome Mark"
+print type(var1), var1
+print '''Hi I am Mark,
+I live in Taipei'''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 中文
+print("#中文")
+var1 = "Hello"
+print(type(var1), var1)
+var2 = b"Welcome Mark"
+print(type(var2), var2)
+print('''Hi I am Mark,
+I live in Taipei''')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+v1 = "中文輸入"
+print v1, type(v1), len(v1)
+
+v2 = u"中文輸入"
+print v2, type(v2), len(v2) 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print 2 ** 5, 5 ** 2
+
+print 2 ^ 5, 5 ^ 2
+print 2 ^ 3, 2 ^ 4, 2 ^ 5, 2 ^ 6, 2 ^ 7, 2 ^ 8
+https://www.sympy.org/en/index.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+x = 5
+print x, hex(id(x))
+x = 6
+print x, hex(id(x))
+l = [5]
+print l, hex(id(l))
+l[0] = 6
+print l, hex(id(l))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 = 5
+a2 = -4
+a3 = 5-4j
+print type(a1), type(a2), type(a3)
+print a3.real, a3.imag
+print a3**2
+print abs(a3), (25+16)**0.5
+a4 = 4+5j
+print a3+a4, a3-a4, a3*a4
+print(-1)**0.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+from fractions import Fraction
+
+print Fraction(250, 72)
+print Fraction(25, 4) + Fraction(100, 6)
+k1 = Fraction(266, 72)
+# numerator==>分母
+# denominator==>分子
+print k1.denominator, k1.numerator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from decimal import Decimal as Dec
+
+print Dec(2.968)
+print Dec('2.968')
+print Dec(0.001)*Dec(2968)-Dec(2.968)
+print Dec('0.001')*Dec(2968)-Dec('2.968')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = 6
+b = 8
+print 'a=%d,b=%d\n' % (a, b)
+temp = a
+a = b
+b = temp
+print 'a=%d,b=%d\n' % (a, b)
+c = 7
+d = 9
+print 'c=%d, d=%d\n' % (c, d)
+c, d = d, c
+print 'c=%d, d=%d\n' % (c, d)
+e = 3.14
+f = 'pi'
+print 'e,f', e, f
+e, f = f, e
+print 'e,f', e, f
+first, second, third, fourth, fifth = 'A', 'K', 'Q', 'J', '10'
+print first, second, third, fourth, fifth
+third, fifth, first, fourth, second = first, second, third, fourth, fifth
+print first, second, third, fourth, fifth
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+str1 = 'abcdefg1234567'
+print type(str1), len(str1), str1
+print str1[0], str1[len(str1)-1]
+#print str1[len(str1)]
+print str1[2:7]
+print str1[:7], str1[7:]
+str2 = 'www.uuu.com.tw'
+print(str2.split('.'))
+print '#'.join(str2.split('.'))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 = 'abcdefg1234567'
+print 'cde' in a1, 'CDE' in a1, 'cde' not in a1, 'CDE' not in a1
+
+a2 = 'kkk'
+print a1 + a2, a1 * 3, 5 * a2
+
+a3 = a1 * 5
+print a1[1:20:2]
+print min(a3), max(a3)
+
+a4 = '12345ABCDEabcde'
+print min(a4), max(a4)
+
+print a1.index('b'), a1.index('1')
+#print a1.index('xxx')
+print a1.count('1'), a1.count('ppp')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 = "abc"
+a2 = ['a', 'b', 'c']
+print type(a1), len(a1), a1
+print type(a2), len(a2), a2
+print a1[1:], a2[1:]
+a2[1] = 'B'
+print a2
+a1[1] = 'B'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+a3 = list("ABCDEFG1234567" * 2)
+print a3
+a3[:5] = 'T'
+print a3
+del a3[:5]
+print a3
+a3[::2]='*'*10
+print a3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 = list('abc')
+a2 = list('def')
+a1.append(a2)
+print 'append==>', a1
+a3 = list('abc')
+a4 = list('def')
+a3.extend(a4)
+print 'extend==>', a3
+a5 = list('abc')
+a6 = list('def')
+print '+ ==>', a5 + a6
+a7 = list('abc')
+a8 = list('def')
+for x in a8:
+    a7.append(x)
+print 'append each by each==>', a7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+radius = 4.0
+area = radius * radius * 3.14159
+print 'rad=%f, area=%f\n' % (radius, area)
+print 'rad=%.2f, area=%.2f\n' % (radius, area)
+print 'rad=%(radius).2f, area=%(area).2f\n' % {'radius': radius, 'area': area}
+print 'rad=%(radius).2f, area=%(area).2f\n' % {'area': area, 'radius': radius}
+print 'rad={}, area={}\n'.format(radius, area)
+print 'rad={:.2f}, area={:.2f}\n'.format(radius, area)
+print 'rad={1:.2f}, area={0:.2f}\n'.format(area, radius)
+print 'rad={r:.2f}, area={a:.2f}\n'.format(r=radius, a=area)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Foo:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return '[Foo]:Str format:%s' % (self.name)
+
+    def __repr__(self):
+        return '[Foo]:repr format:s%s' % (self.name)
+
+
+f1 = Foo('ken')
+f2 = Foo('mark')
+print f1, f2
+print '%s,%r' % (f1, f1)
+print '{0!s}, {0!r}'.format(f1)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Foo:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return '[Foo]:Str 格式:%s' % (self.name)
+
+    def __repr__(self):
+        return '[Foo]:repr 格式:s%s' % (self.name)
+
+
+f1 = Foo('ken')
+f2 = Foo('mark')
+print(f1, f2)
+print('%s,%r' % (f1, f1))
+print('{0!s}, {0!r}, {0!a}'.format(f1))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+print '==%10s==' % ('0123456789')
+print '==%10s==' % ('0123456789'[:5])
+print '==%10s==' % ('0123456789' * 2)
+print '==%10s==' % ('中文')
+print '==%10s==' % (u'中文')
+print '=={:10}=='.format('01234')
+print '=={:>10}=='.format('01234')
+print '=={:>10}=='.format('中文')
+print u'=={:>10}=='.format(u'中文')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+print '==%10s==' % ('0123456789')
+print '==%10s==' % ('01234')
+print '==%-10s==' % ('01234')
+print '==%*s==' % (-10, '01234')
+print '==%*s==' % (10, '01234')
+print '=={:<10s}=='.format('01234')
+print '=={:>10s}=='.format('01234')
+print '=={:<{}s}=='.format('01234', 10)
+print '=={:>{}s}=='.format('01234', 10)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+print '==%10s==' % ('0123456789')
+print '==%10s==' % ('01234')
+print '=={:10s}=='.format('01234')
+print '=={:#<10s}=='.format('01234')
+print '=={:.>10s}=='.format('01234')
+print '=={:"^10s}=='.format('01234')
+print '%.6f' % (3.1415926837)
+print '%.6s' % ('hello_world')
+print '%.6s' % ('可以使用中文的方式')
+print '%.6s' % (u'可以使用中文的方式')
+print '{:.6s}'.format('可以使用中文的方式')
+print u'{:.6s}'.format(u'可以使用中文的方式')
+print '{:.{}s}'.format('可以使用中文的方式', 6)
+print '%.*s' % (6,u'可以使用中文的方式')
+
+
+
+
+

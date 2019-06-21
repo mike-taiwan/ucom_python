@@ -1,0 +1,622 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from demo90 import User, Base
+import os
+
+print os.getcwd()
+#engine = create_engine('sqlite:///:memory:', echo=True)
+#engine = create_engine('sqlite:///my_orm1.sqlite', echo=True)
+engine = create_engine('sqlite:///c:\\Users\\Admin\\my_orm2.sqlite', echo=True)
+print([User.__tablename__, User.__table__])
+Base.metadata.create_all(engine)
+
+Session1 = sessionmaker(bind=engine)
+session1 = Session1()
+user1 = User(name='user1', fullname='User one', password='ucom')
+user2 = User(name='user2', fullname='User two', password='uuu')
+session1.add(user1)
+session1.add(user2)
+session1.commit()
+
+# session1 = Session1()
+all_users = session1.query(User)
+for i in all_users:
+    print "get a user:", i
+# session1.commit()
+session3 = Session1()
+userToModify = session3.query(User).filter_by(name='user1').first()
+print "[i]current dirty object list:", [session3.dirty]
+
+!~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+userToModify.fullname = 'Mark Ho'
+print "[ii]current dirty object list:", [session3.dirty]
+session3.commit()
+all_users2 = session3.query(User)
+for i in all_users2:
+    print "[II]:get a user:", i
+
+session4 = Session1()
+userToDelete = session4.query(User).filter_by(name='user1').first()
+session4.delete(userToDelete)
+session4.commit()
+
+all_users4 = session4.query(User)
+for i in all_users4:
+    print "[IV]:get a user:", i
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://www.apache.org/dyn/closer.lua/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+
+copy to c:\
+extract to here..
+C:\spark-2.3.3-bin-hadoop2.7
+
+(ADD)
+SCALA_HOME
+
+C:\Program Files (x86)\scala
+
+make sure C:\Program Files (x86)\scala\bin==> in Path
+
+new a cmd
+
+scala (make sure 2.11.12)
+ctrl-D quit
+
+set JAVA
+JAVA_HOME=C:\Java\jdk1.8.0_211 ==> output
+
+javac -version
+java -version
+
+https://github.com/steveloughran/winutils
+
+winutils\hadoop2.7 ==> (49) copy to c:\spark...\bin (27)
+
+76 files in C:\spark-2.3.3-bin-hadoop2.7\bin
+
+SPARK_HOME
+HADOOP_HOME
+C:\spark-2.3.3-bin-hadoop2.7
+
+Path
+%SPARK_HOME%\bin
+
+set SPARK
+should see SPARK_HOME=C:\spark-2.3.3-bin-hadoop2.7
+set HADOOP
+HADOOP_HOME=C:\spark-2.3.3-bin-hadoop2.7
+set path
+C:\spark-2.3.3-bin-hadoop2.7\bin;
+
+
+cd c:\spark-2.3.3-bin-hadoop2.7\bin
+spark-shell
+
+http://192.168.20.<YOUR_IP_LAST>:4040/jobs/
+
+ val textFile = sc.textFile("yarn.cmd")
+textFile.count()
+
+IntelliJ
+Configure/Structure for new project
+New JDK
+C:\Java\jdk1.8.0_211
+# Create New Project
+Configure/Plugin
+Scala
+
+Create New Project
+(tick) Scala
+Create Library
+2.11.12 ==> OK
+
+BDPY_Scala
+~~~~~~~~~~~~~~~~~~~
+textFile.count()
+
+textFile.first()
+textFile.take(2)
+textFile.collect()
+
+~~~~~~~~~~~~~~~~~~~~~~~
+New package
+com.uuu.bdpy.lab
+New Scala class
+HelloSpark1
+
+Kind==> Object
+
+File/Settings/Editor/General==> change font size
+
+ def main(args: Array[String]): Unit = {
+    println("Hello world")
+  }
+
+Project F4
+left Libraries
++
++Java
+C:\spark-2.3.3-bin-hadoop2.7\jars
+
+
+  def main(args: Array[String]): Unit = {
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    sc.stop()
+  }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSpark1 {
+  def main(args: Array[String]): Unit = {
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSpark1 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    println("connect successfully, prepare to do something...")
+    sc.stop()
+  }
+}
+
+File/Setting/
+Live Template
+
+sparkmain
+
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    println("connect successfully, prepare to do something...")
+    sc.stop()
+  }
+
+new a directory data
+copy yarn.cmd (<--inside your spark\bin)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSpark1 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    println("connect successfully, prepare to do something...")
+    val textFile1 = sc.textFile("data\\yarn.cmd")
+    println("yarn.cmd has:%d lines".format(textFile1.count()))
+    val numAs = textFile1.filter(line=>line.contains("a")).count()
+    val numBs = textFile1.filter(line=>line.contains("b")).count()
+    println(s"Lines with a: $numAs, with b: $numBs")
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSpark2 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val spark = SparkSession.builder().master("local[*]").appName("demo2").getOrCreate();
+    val textFile = spark.sparkContext.textFile("data\\yarn.cmd")
+    println(textFile.take(2))
+    println("connect successfully, prepare to do something...")
+    spark.sparkContext.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSpark2 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val spark = SparkSession.builder().master("local[*]").appName("demo2").getOrCreate();
+    val textFile = spark.sparkContext.textFile("data\\yarn.cmd")
+    println(textFile.take(2))
+    println("print in a pretty way")
+    println(textFile.take(2).mkString("Array(","m",")"))
+    println("print in alternative way")
+    textFile.take(3).foreach(println)
+    println("print in alternative way2")
+    textFile.collect().foreach(line=>println("[%d]%s".format(line.length,line)))
+    println("connect successfully, prepare to do something...")
+    spark.sparkContext.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+File/New/Project
+Scala,sbt
+
+
+BDPY_Scala_sbt
+
+Scala 2.11.12
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
+
+object HelloSpark3 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val spark = SparkSession.builder.master("local[*]").appName("demo2").getOrCreate
+    println("connect successfully, prepare to do something...")
+    val df1 = spark.createDataFrame(Seq(
+      (0, "apple"),
+      (1, "banana"),
+      (2, "citron"),
+      (3, "apple"),
+      (4, "apple"),
+      (5, "citron")
+    )).toDF("id", "category")
+    spark.sparkContext.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[project2]
+build.sbt
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.3"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.bdpy.lab
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.ml.feature.{OneHotEncoder, StringIndexer}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
+
+object HelloSpark3 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val spark = SparkSession.builder.master("local[*]").appName("demo2").getOrCreate
+    println("connect successfully, prepare to do something...")
+    val df1 = spark.createDataFrame(Seq(
+      (0, "apple"),
+      (1, "banana"),
+      (2, "citron"),
+      (3, "apple"),
+      (4, "apple"),
+      (5, "citron")
+    )).toDF("id", "category")
+
+    val indexer = new StringIndexer().setInputCol("category").setOutputCol("categoryIndex").fit(df1)
+    val indexed = indexer.transform(df1)
+    val encoder = new OneHotEncoder()
+        .setInputCol("categoryIndex")
+        .setOutputCol("categoryVec")
+        .setDropLast(false)
+    val encoded = encoder.transform(indexed)
+    println("print the result")
+    encoded.show()
+    spark.sparkContext.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new a sbt
+com.uuu.sbt.demo
+
+
+package com.uuu.sbt.demo
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSbt1 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    println("connect successfully, prepare to do something...")
+    val textFile = sc.textFile("data\\yarn.cmd");
+    textFile.map(_.toUpperCase).take(5).foreach(println)
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.sbt.demo
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSbt2 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    val textFile = sc.textFile("data\\yarn.cmd")
+    val mapResult1 = textFile.map(l => l.split("\\s+"))
+    println(mapResult1.collect())
+    mapResult1.foreach(l => println(l.mkString("(",",",")")))
+    val mapResult2 = textFile.flatMap(l=>l.split("\\s+"))
+    println(mapResult2.collect().mkString("(",",",")"))
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.sbt.demo
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSbt3 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    var rdd1 = sc.makeRDD(1 to 10)
+    val result = rdd1.reduce(_ + _)
+    var rdd2 = sc.makeRDD(1 to 20)
+    val result2 = rdd2.reduce((x, y) => {
+      x + y
+    })
+    println("answer1=%d, answer2=%d".format(result, result2))
+    println("connect successfully, prepare to do something...")
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.sbt.demo
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSbt4 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    val rdd1 = sc.makeRDD(Array(("A", 1), ("B", 3), ("C", 5), ("D", 7), ("E", 9), ("F", 11)))
+    println("add reduce:")
+    println(rdd1.reduce((x, y) => {
+      (x._1 + y._1, x._2 + y._2)
+    }))
+    println("sub reduce:")
+    println(rdd1.reduce((x, y) => {
+      (x._1 + y._1, x._2 - y._2)
+    }))
+
+    println("connect successfully, prepare to do something...")
+    sc.stop()
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+package com.uuu.sbt.demo
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
+object HelloSbt5 {
+  def main(args: Array[String]): Unit = {
+    Logger.getLogger("org").setLevel(Level.WARN)
+    val config = new SparkConf().setAppName("SimpleSpark1").setMaster("local[*]")
+    val sc = new SparkContext(config)
+    val textFile = sc.textFile("data\\yarn.cmd")
+    println(textFile.map(l => l.split("\\s+").size).collect().mkString("[", ",", "]"))
+    println("max word:", textFile.map(l => l.split("\\s+").size).reduce((a, b) => if (a > b) a else b))
+    println("connect successfully, prepare to do something...")
+    sc.stop()
+  }
+}
+quit scala console
+
+pyspark
+
+spark
+print(spark)
+
+gear, all, library(last one)
+
+C:\spark-2.3.3-bin-hadoop2.7\python\lib
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SparkSession
+
+conf = SparkConf().setAppName("HelloPython").setMaster("local")
+sc = SparkContext(conf=conf)
+print sc.getConf().getAll()
+sc.stop()
+
+spark = SparkSession.builder.appName("spark").getOrCreate()
+print spark.sparkContext.getConf().getAll()
+spark.sparkContext.stop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from pyspark.ml.feature import OneHotEncoder, StringIndexer
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("spark").getOrCreate()
+
+df1 = spark.createDataFrame([
+    (0, "7-11"),
+    (1, "7-11"),
+    (2, 'Fami'),
+    (3, "OK"),
+    (4, 'Fami'),
+    (5, 'Hi-Life'),
+    (6, '7-11')
+]), ["id", "category"]
+
+stringIndexer = StringIndexer(inputCol="category", outputCol="categoryIndex")
+model = stringIndexer.fit(df1)
+indexed = model.transform(df1)
+encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="result", dropLast=False)
+encoded = encoder.transform(indexed)
+encoded.show()
+
+spark.sparkContext.stop()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from pyspark.ml.feature import OneHotEncoder, StringIndexer
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("spark").getOrCreate()
+
+df1 = spark.createDataFrame([
+    (0, "7-11"),
+    (1, "7-11"),
+    (2, 'Fami'),
+    (3, "OK"),
+    (4, 'Fami'),
+    (5, 'Hi-Life'),
+    (6, '7-11')
+], ["id", "category"])
+
+indexer = StringIndexer(inputCol="category", outputCol="categoryIndex")
+model = indexer.fit(df1)
+indexed = model.transform(df1)
+print indexed
+encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="result", dropLast=False)
+encoded = encoder.transform(indexed)
+encoded.show()
+
+spark.sparkContext.stop()
+copy yarn.cmd to data
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from pyspark import SparkContext
+
+sc = SparkContext("local", "my spark app")
+lines = sc.textFile("data\\yarn.cmd")
+lines.cache()
+print("get total with collect:", lines.collect())
+print("get total line count:", lines.count())
+print("get first line", lines.first())
+print("get first several line", lines.take(8))
+print("filter line with 'k' ", lines.filter(lambda s: 'k' in s).count())
+print("sample 5 lines:", lines.sample(False, 5))
+print('first 9 records:', lines.takeOrdered(9))
+lineLengths = lines.map(lambda s: len(s))
+print("per line length:", lineLengths.collect())
+totalLength = lineLengths.reduce(lambda a, b: a + b)
+print("total length=", totalLength)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cmd
+jupyter-notebook --generate-config
+
+cd C:\Users\Admin\.jupyter\
+
+c=get_config()
+c.NotebookApp.notebook_dir="C:\\Users\\Admin\\notebook"
+
+jupyter-notebook
+
+make sure notebook (you will see ipynb)
+
+ctrl+c quit 
+
+
+rem Figure out which Python to use.
+if "x%PYSPARK_DRIVER_PYTHON%"=="x" (
+rem  set PYSPARK_DRIVER_PYTHON=python
+    set PYSPARK_DRIVER_PYTHON=jupyter
+    set PYSPARK_DRIVER_PYTHON_OPTS="notebook"
+  if not [%PYSPARK_PYTHON%] == [] set PYSPARK_DRIVER_PYTHON=%PYSPARK_PYTHON%
+)
+
+
+pyspark
+
+put 3 files into notebook\eula
+
+demo95_spark
+
+import re
+from operator import add
+
+
+file_in1 = sc.textFile('eula\\eula.1028.txt')
+'number of lines in file:%d'%file_in1.count()
+
+file_in_all = sc.textFile('eula\\eula*.txt')
+'number of lines in all files:%d'%file_in_all.count()
+
+chars = file_in_all.map(lambda l:len(l)).reduce(add)
+'number of characters:%d'%chars
+
+words = file_in_all.flatMap(lambda l:re.split('\W+',l.lower().strip()))
+words.take(50)
+
+counts = file_in_all.flatMap(lambda l:l.split(" ")).map(lambda w:(w,1)).reduceByKey(lambda a,b:a+b)
+counts.take(20)
+
+countsReverse = counts.map(lambda x:(x[1],x[0])).sortByKey(False)
+countsReverse.take(50)
+
+%matplotlib inline
+import matplotlib.pyplot as plt
+count = map(lambda x:x[0], countsReverse.take(10))
+word = map(lambda x:x[1],countsReverse.take(10))
+plt.barh(range(len(count)), count, color='gray')
+plt.yticks(range(len(count)),word)
+
+pip install flask flask-restful
+~~~~~~~~~~~~~~~~~~~~~~~~
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello():
+    return 'hello python using flask'
+
+
+app.run(host='0.0.0.0', port=5001, debug=True)
+
+http://localhost:5001/
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# encoding=UTF-8
+from flask import Flask
+from flask_restful import Resource, Api
+
+app = Flask(__name__)
+api = Api(app)
+
+
+class Rest1(Resource):
+    def get(self):
+        return {'course': 'bdpy', 'duration': 35, 'instructor': '¦ó°¨§J'}
+
+
+class Rest2(Resource):
+    def get(self):
+        return ['BDPY', 'BDR', 'AndBiz', 'AppSec', 'PYKT', 'RKT']
+
+
+api.add_resource(Rest1, '/course')
+api.add_resource(Rest2, '/mark')
+
+app.run(port=5002, host='0.0.0.0', debug=True)

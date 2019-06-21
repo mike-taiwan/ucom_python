@@ -1,8 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from demo90_sqlalchemy import User, Base
+import os
 
-engine = create_engine('sqlite:///:memory:', echo=True)
+print os.getcwd()
+#engine = create_engine('sqlite:///:memory:', echo=True)
+#engine = create_engine('sqlite:///my_orm1.sqlite', echo=True)
+engine = create_engine('sqlite:///C:\\temp_phw\\db\\my_orm2.sqlite', echo=True)
 print([User.__tablename__, User.__table__])
 Base.metadata.create_all(engine)
 
@@ -28,3 +32,12 @@ session3.commit()
 all_users2 = session3.query(User)
 for i in all_users2:
     print "[II]:get a user:", i
+
+session4 = Session1()
+userToDelete = session4.query(User).filter_by(name='user1').first()
+session4.delete(userToDelete)
+session4.commit()
+
+all_users4 = session4.query(User)
+for i in all_users4:
+    print "[IV]:get a user:", i
